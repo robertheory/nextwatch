@@ -1,0 +1,6 @@
+[submodule "nextwatch-api"]
+	path = nextwatch-api
+	url = git@github.com:robertheory/nextwatch-api.git
+[submodule "nextwatch-web"]
+	path = nextwatch-web
+	url = git@github.com:robertheory/nextwatch-web.git
