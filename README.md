@@ -21,3 +21,62 @@ NextWatch is a web application that allows users to track their favorite TV show
 - Database: PostgreSQL
 - Containerization: Docker, Docker Compose
 - External API: TVMaze
+
+# Getting Started
+
+## Prerequisites
+
+- Docker and Docker Compose installed on your machine
+- An internet connection to access the TVMaze API
+- (Optional) Node.js and npm/yarn if you want to run the services without Docker
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/robertheory/nextwatch.git
+   cd nextwatch
+   ```
+2. Create a `.env` file in the root directory and add the necessary environment variables. You can refer to the `.env.example` file for guidance.
+3. Build and start the services using Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+4. Access the application at `http://localhost:3000`.
+5. The backend API will be available at `http://localhost:3333`.
+6. The PostgreSQL database will be accessible at `localhost:5432` with the credentials specified in your `.env` file.
+
+## Running Without Docker
+
+### Backend
+
+1. Navigate to the `nextwatch-api` directory and install dependencies:
+   ```bash
+   cd nextwatch-api
+   yarn install
+   ```
+2. Create a `.env` file in the `nextwatch-api` directory and add the necessary environment variables.
+3. Initialize the database and run migrations.
+   ```bash
+    npx prisma generate
+    npx prisma migrate dev
+   ```
+4. Start the backend server:
+   ```bash
+   yarn start:dev
+   ```
+5. Use the `api.http` file in the root directory to test the API endpoints.
+
+### Frontend
+
+1. Navigate to the `nextwatch-frontend` directory and install dependencies:
+   ```bash
+   cd nextwatch-frontend
+   yarn install
+   ```
+2. Create a `.env` file in the `nextwatch-frontend` directory and add the necessary environment variables.
+3. Start the frontend development server:
+   ```bash
+   yarn dev
+   ```
+4. Access the application at `http://localhost:3000`.
