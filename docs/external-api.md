@@ -27,6 +27,23 @@ How NextWatch integrates
 - The frontend uses the client in `lib/apis/tvmaze-api.ts` to search shows and fetch show/episode details.
 - Configure the API base URL with the `NEXT_PUBLIC_TVMAZE_API` environment variable (defaults to `https://api.tvmaze.com`).
 
+Routes used by this project
+
+The frontend client in `lib/apis/tvmaze-api.ts` calls the following TVmaze endpoints:
+
+- Search shows: `GET /search/shows?q=:query` — fuzzy search used by the UI search box.
+- Show details: `GET /shows/:id` — fetch detailed information for a specific show.
+- Show episodes: `GET /shows/:id/episodes` — fetch the episode list for a specific show.
+
+Notes:
+
+- The implementation uses a base URL configurable via environment variable (see `lib/apis/tvmaze-api.ts`: `process.env.TVMAZE_API_URL` with fallback `https://api.tvmaze.com`).
+- Example calls used in the code:
+
+  - `https://api.tvmaze.com/search/shows?q=girls`
+  - `https://api.tvmaze.com/shows/1`
+  - `https://api.tvmaze.com/shows/1/episodes`
+
 Examples
 
 - Search: `https://api.tvmaze.com/search/shows?q=girls`
