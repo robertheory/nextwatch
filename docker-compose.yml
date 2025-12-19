@@ -1,0 +1,76 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    restart: unless-stopped
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 20s
+      test:
+        - CMD-SHELL
+        - pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}
+      timeout: 5s
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  nextwatch-api:
+    build:
+      context: ./nextwatch-api
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      # Use the postgres service hostname for DB when running inside compose
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public
+      - PORT=${API_PORT}
+      - NODE_ENV=development
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    restart: unless-stopped
+    healthcheck:
+      interval: 10s
+      retries: 10
+      start_period: 45s
+      timeout: 5s
+      test:
+        - CMD-SHELL
+        - node -e "const http=require('http');const options={host:'127.0.0.1',port:${API_PORT:-3333},path:'/'};const req=http.get(options,res=>{process.exit(res.statusCode>=200&&res.statusCode<400?0:1)});req.on('error',()=>process.exit(1));"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - server_node_modules:/usr/src/app/node_modules
+
+  nextwatch-web:
+    build:
+      context: ./nextwatch-web
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      # For server-side requests inside the container use the API service hostname
+      - API_URL=http://nextwatch-api:${API_PORT}
+      - TVMAZE_API_URL=${TVMAZE_API_URL}
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      nextwatch-api:
+        condition: service_healthy
+    volumes:
+      - server_node_modules:/usr/src/app/node_modules
+
+volumes:
+  server_node_modules:
+    driver: local
+  postgres:
+    driver: local
