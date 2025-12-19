@@ -20,7 +20,7 @@ NextWatch is a web application that allows users to track their favorite TV show
 - Backend: NestJS, TypeScript
 - Database: PostgreSQL
 - Containerization: Docker, Docker Compose
-- External API: TVMaze
+- External API: TVMaze (reference in [docs/external-api.md](docs/external-api.md))
 
 # Getting Started
 
