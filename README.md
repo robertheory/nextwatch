@@ -22,6 +22,31 @@ NextWatch is a web application that allows users to track their favorite TV show
 - Containerization: Docker, Docker Compose
 - External API: TVMaze (reference in [docs/external-api.md](docs/external-api.md))
 
+## Architecture
+
+The project follows a small service-oriented layout with a single frontend client and a backend API that persists data to PostgreSQL. The frontend (Next.js) is responsible for interacting with both the backend API and the external TVmaze REST API.
+
+- **Frontend**: `nextwatch-web` (Next.js) — serves the browser UI, calls the backend API (`NEXT_PUBLIC_API_URL`) and performs direct requests to TVmaze for show/episode data.
+- **Backend API**: `nextwatch-api` (NestJS) — provides application endpoints, orchestrates persistence and business logic, and exposes the REST API consumed by the frontend.
+- **Database**: PostgreSQL — persistent storage for tracked shows and watched episodes.
+- **External API**: TVmaze — public provider of show and episode metadata; the frontend calls TVmaze endpoints directly.
+- **Infrastructure**: Docker Compose is used to run frontend, backend and database containers for development and deployment.
+
+### Communication summary
+
+- Browser → Frontend (HTTP)
+- Frontend → Backend (REST API via `NEXT_PUBLIC_API_URL`)
+- Frontend → TVmaze (external REST requests to `https://api.tvmaze.com`)
+- Backend → PostgreSQL (SQL connections via `DATABASE_URL`)
+
+### Diagram
+
+The system architecture was modelled with PlantUML (source: `docs/architecture.puml`). A rendered image generated from that PlantUML source is included below.
+
+![Architecture diagram](docs/architecture.png)
+
+If you need the PlantUML source, see `docs/architecture.puml`.
+
 # Getting Started
 
 ## Prerequisites

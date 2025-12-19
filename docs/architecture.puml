@@ -1,0 +1,31 @@
+@startuml NextWatchArchitecture
+title NextWatch Architecture — Communication Overview
+
+actor "User / Browser" as User
+
+[NextWatch Frontend\n(Next.js)\nnextwatch-web] as FrontendApp
+[NextWatch API\n(NestJS)\nnextwatch-api] as BackendApi
+database "PostgreSQL\n(persistent storage)" as PostgresDB
+cloud "TVmaze API\nExternal REST API" as TVMazeAPI
+
+node "Docker Compose\n(web, api, db)" as DockerCompose
+
+User --> FrontendApp : HTTP (browser UI)
+FrontendApp --> BackendApi : REST API (NEXT_PUBLIC_API_URL)
+BackendApi --> PostgresDB : SQL / connections (DATABASE_URL)
+FrontendApp --> TVMazeAPI : External REST requests (https://api.tvmaze.com)
+
+DockerCompose .. FrontendApp
+DockerCompose .. BackendApi
+DockerCompose .. PostgresDB
+
+legend left
+|= Component |= Responsibility |
+|Frontend|Client UI — consumes backend API and calls external TVmaze API|
+|Backend|Business logic and data orchestration (persistence)
+|Postgres|Persistent data store|
+|TVMaze|External show/episode provider (called by frontend)
+endlegend
+
+@enduml
+
