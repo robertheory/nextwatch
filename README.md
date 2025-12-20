@@ -21,6 +21,7 @@ NextWatch is a web application that allows users to track their favorite TV show
 - Database: PostgreSQL
 - Containerization: Docker, Docker Compose
 - External API: TVMaze (reference in [docs/external-api.md](docs/external-api.md))
+- Entities: domain & DB mapping (reference in [docs/entities.md](docs/entities.md))
 
 ## Architecture
 
