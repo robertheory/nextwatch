@@ -2,6 +2,22 @@
 
 NextWatch is a web application that allows users to track their favorite TV shows. It integrates with the TVMaze API to fetch show details and provides a user-friendly interface for managing watchlists.
 
+## Table of Contents
+
+- [NextWatch](#nextwatch)
+  - [Table of Contents](#table-of-contents)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Running Without Docker](#running-without-docker)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Architecture](#architecture)
+    - [Communication summary](#communication-summary)
+    - [Diagram](#diagram)
+
 # Getting Started
 
 ## Prerequisites
@@ -36,16 +52,17 @@ NextWatch is a web application that allows users to track their favorite TV show
    yarn install
    ```
 2. Create a `.env` file in the `nextwatch-api` directory and add the necessary environment variables.
-3. Initialize the database and run migrations.
+3. Instantiate a PostgreSQL database (locally or via a service like Docker) and ensure it is running.
+4. Initialize the database and run migrations.
    ```bash
     npx prisma generate
     npx prisma migrate dev
    ```
-4. Start the backend server:
+5. Start the backend server:
    ```bash
    yarn start:dev
    ```
-5. Use the `api.http` file in the root directory to test the API endpoints.
+6. Access OpenAPI documentation at `http://localhost:3333/api`
 
 ### Frontend
 
