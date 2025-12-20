@@ -28,9 +28,9 @@ NextWatch is a web application that allows users to track their favorite TV show
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repository (with submodules):
    ```bash
-   git clone https://github.com/robertheory/nextwatch.git
+   git clone https://github.com/robertheory/nextwatch.git --recurse-submodules
    cd nextwatch
    ```
 2. Create a `.env` file in the root directory and add the necessary environment variables. You can refer to the `.env.example` file for guidance.
