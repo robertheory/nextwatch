@@ -20,11 +20,11 @@ DockerCompose .. BackendApi
 DockerCompose .. PostgresDB
 
 legend left
-|= Component |= Responsibility |
-|Frontend|Client UI — consumes backend API and calls external TVmaze API|
-|Backend|Business logic and data orchestration (persistence)
-|Postgres|Persistent data store|
-|TVMaze|External show/episode provider (called by frontend)
+	* Component — Responsibility
+	* Frontend — Client UI: consumes backend API and calls external TVmaze API
+	* Backend — Business logic and data orchestration (persistence)
+	* Postgres — Persistent data store
+	* TVMaze — External show/episode provider (called by frontend)
 endlegend
 
 @enduml
