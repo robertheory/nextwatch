@@ -7,7 +7,7 @@ This document provides a concise overview of the main domain entities used in Ne
 - **Show**: Represents a TV show tracked by the user. Core responsibilities:
 
   - Identity: external TVMaze identifier (`showId`) used to resolve metadata.
-  - Metadata: name, genres, premiered date, summary, image(s).
+  - Metadata: name, genres, premiered date, summary, image(s). (Note: metadata is not stored in the database; it is fetched from TVMaze as needed.)
   - Tracking state: a `status` with semantic values that describe user progress (NOT_STARTED, WATCHING, FINISHED, UNTRACKED).
   - Relationships: a `Show` can have many `WatchedEpisode` entries (one-to-many).
 
